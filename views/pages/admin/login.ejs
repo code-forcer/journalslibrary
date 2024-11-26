@@ -1,0 +1,70 @@
+<%- include('../../partials/header') %>
+
+    <main class="main">
+
+        <!-- Page Title -->
+        <div class="page-title light-background">
+            <div class="container">
+                <h1>Get started</h1>
+                <nav class="breadcrumbs">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li class="current">Login</li>
+                    </ol>
+                </nav>
+            </div>
+        </div><!-- End Page Title -->
+
+        <!-- Starter Section Section -->
+        <section id="starter-section" class="starter-section section">
+            <div class="container" data-aos="fade-up">
+
+                <div class="col-lg-5 mx-auto">
+                    <div class="contact-form p-4 rounded shadow bg-white" data-aos="fade-up" data-aos-delay="300">
+                      <h3 class="text-center mb-4">Login to Your Account</h3>
+                      <p class="text-muted text-center mb-4">
+                        Access your dashboard and continue your journey with us.
+                      </p>
+                  
+                      <form action="forms/login.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-3">
+                  
+                          <!-- Email Field -->
+                          <div class="col-md-12">
+                            <label for="login-email" class="form-label">Email Address</label>
+                            <input type="email" id="login-email" name="email" class="form-control" placeholder="Enter your email" required>
+                          </div>
+                  
+                          <!-- Password Field -->
+                          <div class="col-md-12">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" id="login-password" name="password" class="form-control" placeholder="Enter your password" required>
+                          </div>
+                  
+                          <!-- Remember Me -->
+                          <div class="col-md-12 d-flex align-items-center">
+                            <input type="checkbox" id="remember-me" name="remember" class="me-2">
+                            <label for="remember-me" class="form-label">Remember Me</label>
+                          </div>
+                  
+                          <!-- Submit Button -->
+                          <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary w-100 p-2" style="border-radius: 25px;">Login now</button>
+                        </div>
+                        </div>
+                      </form>
+                  
+                      <!-- Forgot Password Link -->
+                      <p class="text-center mt-4">
+                        Forgot your password? 
+                        <a href="#forgot-password" class="text-primary fw-bold">Reset it here</a>
+                      </p>
+                    </div>
+                  </div>
+                  
+            </div>
+
+        </section><!-- /Starter Section Section -->
+
+    </main>
+    <%- include('../../partials/footer') %>
