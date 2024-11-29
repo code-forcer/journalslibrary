@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 
+const flash = require('connect-flash');
+
 // Load environment variables
 dotenv.config();
 const app = express();
@@ -19,6 +21,36 @@ app.use(express.urlencoded({ extended: true })); // Parse form data
 app.use(express.json()); // Parse JSON requests
 app.use(morgan('dev')); // Log HTTP requests
 
+
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+app.use(
+    session({
+        secret: 'ankisyur369325djr2632qw23', // Replace with a strong, unique secret
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI, // Your MongoDB URI
+        }),
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24, // 1 day
+            httpOnly: true, // Prevents client-side access
+            secure: false, // Set to true if using HTTPS
+        },
+    })
+);
+// Flash Middleware
+app.use(flash());
+
+// Set Global Variables for Flash Messages
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -41,6 +73,12 @@ const payfeeRoutes = require('./routes/payfee');
 const peerreviewRoutes = require('./routes/peerreview');
 const submitmanuscriptsRoutes = require('./routes/submitmanuscripts');
 const topicsRoutes = require('./routes/topics');
+const dashboard = require('./routes/dashboard');
+const logout = require('./routes/logout');
+const userCountRoute = require('./routes/counter');
+const subCountRoute = require('./routes/totalsubmission');
+const contactCountRoute = require('./routes/totalcontacts');
+
 
 // Use Routes
 app.use('/', indexRoutes);
@@ -56,6 +94,11 @@ app.use('/',payfeeRoutes);
 app.use('/',peerreviewRoutes);
 app.use('/',submitmanuscriptsRoutes);
 app.use('/',topicsRoutes);
+app.use('/' , dashboard);
+app.use('/' ,logout);
+app.use('/', userCountRoute);
+app.use('/', subCountRoute);
+app.use('/', contactCountRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
@@ -67,7 +110,6 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
     res.status(404).render('pages/404', { title: 'Page Not Found' });
 });
-
 // Start the Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
