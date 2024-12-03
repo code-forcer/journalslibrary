@@ -63,3 +63,7 @@ Happy Hacking!!,
                         </div>
                       </td>
                     </tr>  <% }) %>
+
+                    const PAYPAL_CLIENT_ID = 'AW6S_R9zDD2pqtsAAa0582e2vGdM-dwD1CrAhbQNw_7rFOtXeY-ZYOtR3C4V4ciHSwYJnoZ0v2juVm80'; // Replace with your PayPal Client ID
+const PAYPAL_SECRET = 'EHOyylQImLoyvkYNLCoBFKgRsOquDuEYH3noHxq7Mi-8piCk58IbZ-bWuUGSNC00Ew0Hyf0CpNugjYP4';  // Replace with your PayPal Secret
+const PAYPAL_API = 'AVNSOBcTvYyqXosD6oFfXr91ALohxbFi4BaDkNd858vGhk5L9bFIeqn2n8L0aJSIMSP5AtcNdzVODhU4'; // Use sandbox for testing, live for production

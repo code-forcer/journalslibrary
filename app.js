@@ -78,6 +78,7 @@ const logout = require('./routes/logout');
 const userCountRoute = require('./routes/counter');
 const subCountRoute = require('./routes/totalsubmission');
 const contactCountRoute = require('./routes/totalcontacts');
+const capturepayRoute = require('./routes/capture-payment');
 
 
 // Use Routes
@@ -99,6 +100,7 @@ app.use('/' ,logout);
 app.use('/', userCountRoute);
 app.use('/', subCountRoute);
 app.use('/', contactCountRoute);
+app.use('/', capturepayRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
