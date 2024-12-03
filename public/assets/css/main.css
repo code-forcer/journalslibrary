@@ -2423,3 +2423,6 @@ input.danger:focus {
 }
 
 
+.form-label{
+  font-weight: bold;
+}
