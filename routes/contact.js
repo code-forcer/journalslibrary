@@ -27,18 +27,18 @@ router.post('/contact', async (req, res) => {
         });
         await contact.save();
 
-        // Nodemailer transporter setup
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.hostinger.com', // Hostinger's SMTP server
+            port: 465,                  // Use port 465 for secure connections
+            secure: true,               // Use true for SSL/TLS
             auth: {
-                user: 'codeforcerdev@gmail.com',
-                pass: 'razqvfdnonhepqkj', // Replace with app-specific password
+                user: 'editor@journalslibrary.net', // Your email address
+                pass: 'K~/WgIKMF7^k',              // Your email password
             },
         });
-
         // Send email to the user
         await transporter.sendMail({
-            from: 'codeforcerdev@gmail.com',
+            from: 'editor@journalslibrary.net',
             to: email,
             subject: `We received your submission - ${subject}`,
             html: `
@@ -52,8 +52,8 @@ router.post('/contact', async (req, res) => {
 
         // Send email to the admin
         await transporter.sendMail({
-            from: 'codeforcerdev@gmail.com',
-            to: 'codeforcerdev@gmail.com',
+            from: 'editor@journalslibrary.net',
+            to: 'editor@journalslibrary.net',
             subject: `New Contact Form Submission - ${subject}`,
             html: `
                 <p>New message from:</p>

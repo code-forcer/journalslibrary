@@ -33,8 +33,7 @@
                                         Join us to publish your work and collaborate with global scientific minds.
                                     </p>
 
-                                    <form id="contactForm" action="/admin/auth" method="post" data-aos="fade-up"
-                                        data-aos-delay="200">
+                                    <form id="contactForm" action="/admin/auth" method="post" enctype="multipart/form-data" data-aos="fade-up" data-aos-delay="200">
                                         <div class="row gy-3">
 
                                             <!-- Name Field -->
@@ -65,7 +64,7 @@
                                                     <option value="editor">Editor</option>
                                                     <option value="reviewer">Reviewer</option>
                                                     <option value="reader">Reader</option>
-                                                    <!-- <option value="admin">Admin</option> -->
+                                                    <option value="admin">Admin</option>
                                                 </select>
                                             </div>
 
@@ -80,6 +79,14 @@
                                                     <i id="eyeIcon" class="fas fa-eye"></i>
                                                 </span>
                                             </div>
+                                            <!-- Image Upload Field -->
+                                            <div class="col-md-12">
+                                                <label for="profileImage" class="form-label">Upload Profile
+                                                    Image</label>
+                                                <input type="file" id="profileImage" name="profileImage"
+                                                    class="form-control" accept="image/*" required>
+                                            </div>
+
                                             <script>function togglePasswordVisibility() {
                                                     const passwordInput = document.getElementById('password');
                                                     const eyeIcon = document.getElementById('eyeIcon');

@@ -2,8 +2,39 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs'); // Added fs for file system operations
 const User = require('../models/User'); // Assuming a MongoDB User model
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+
+// Ensure Upload Directory Exists
+const uploadPath = path.join(__dirname, '..', '/public/uploads', 'image');
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+}
+
+// Configure Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadPath); // Save uploaded files to the defined directory
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = `${Date.now()}_${file.originalname}`;
+        cb(null, uniqueName);
+    },
+});
+
+const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+        // Allow only image files
+        if (!file.mimetype.startsWith('image/')) {
+            return cb(new Error('Only image files are allowed!'), false);
+        }
+        cb(null, true);
+    },
+});
 
 // About Page Route
 router.get('/admin/auth', (req, res) => {
@@ -23,10 +54,9 @@ const transporter = nodemailer.createTransport({
                 pass: 'razqvfdnonhepqkj', // Replace with app-specific password
             },
 });
-
-// Registration Route
 router.post(
     '/admin/auth',
+    upload.single('profileImage'), // Add Multer middleware
     [
         body('name').notEmpty().withMessage('Name is required'),
         body('email').isEmail().withMessage('Enter a valid email'),
@@ -40,14 +70,15 @@ router.post(
         }
 
         const { name, email, phone, role, password, about } = req.body;
+        const profileImage = req.file ? req.file.filename : null;
 
         try {
             // Check if user already exists
             const existingUser = await User.findOne({ email });
             if (existingUser) {
-                res.render('pages/contactformsuccess', { 
-                    title: 'user already exist',
-                    successMessage: 'sorry , user already exist!.'
+                return res.render('pages/contactformsuccess', { 
+                    title: 'User already exists',
+                    successMessage: 'Sorry, user already exists!',
                 });
             }
 
@@ -62,6 +93,7 @@ router.post(
                 role,
                 password: hashedPassword,
                 about,
+                profileImage, // Save the image filename
             });
             await newUser.save();
 
@@ -81,18 +113,17 @@ router.post(
                 text: `A new user has registered:\n\nName: ${name}\nEmail: ${email}\nRole: ${role}`,
             });
 
-            // Redirect to the success page
-        res.redirect('/contactformsuccess');
+            res.redirect('/contactformsuccess');
         } catch (error) {
             console.error('Error:', error);
-            // Render error message
             res.render('pages/contactformsuccess', {
-                title: 'JournalsLibrary | Get started',
+                title: 'Error',
                 successMessage: 'Something went wrong. Please try again later.',
             });
         }
-    });
-    
+    }
+);
+
 
 // Render success page
 router.get('/contactformsuccess', (req, res) => {

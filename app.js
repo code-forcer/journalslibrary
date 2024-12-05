@@ -78,7 +78,18 @@ const logout = require('./routes/logout');
 const userCountRoute = require('./routes/counter');
 const subCountRoute = require('./routes/totalsubmission');
 const contactCountRoute = require('./routes/totalcontacts');
+
+const paymentCountRoute = require('./routes/totalpayment');
 const capturepayRoute = require('./routes/capture-payment');
+const alluploadedRoute = require('./routes/alluploaded');
+const vieweachfileRoute = require('./routes/vieweachfile');
+const alluserRoute = require('./routes/alluser');
+const eachuserRoute = require('./routes/vieweachuser');
+
+const allpaymentRoute = require('./routes/allpayment');
+const issuesRoute = require('./routes/issues');
+
+const allcontactsRoute = require('./routes/allcontacts');
 
 
 // Use Routes
@@ -101,6 +112,14 @@ app.use('/', userCountRoute);
 app.use('/', subCountRoute);
 app.use('/', contactCountRoute);
 app.use('/', capturepayRoute);
+app.use('/', alluploadedRoute);
+app.use('/', vieweachfileRoute);
+app.use('/', alluserRoute);
+app.use('/', eachuserRoute);
+app.use('/', allpaymentRoute);
+app.use('/', paymentCountRoute);
+app.use('/', issuesRoute);
+app.use('/', allcontactsRoute);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
