@@ -1,0 +1,146 @@
+<%- include('../../partials/header') %>
+
+    <main class="main">
+
+        <!-- Page Title -->
+        <div class="page-title light-background">
+            <div class="container">
+                <h1>Get started</h1>
+                <nav class="breadcrumbs">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li class="current">Get started</li>
+                    </ol>
+                </nav>
+            </div>
+        </div><!-- End Page Title -->
+
+        <!-- Starter Section Section -->
+        <section id="starter-section" class="starter-section section">
+            <div class="container" data-aos="fade-up">
+
+
+                <!-- Contact Section -->
+                <section id="contact" class="contact section light-background">
+                    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="row g-4 g-lg-5">
+                            <div class="col-lg-7 mx-auto">
+                                <div class="contact-form p-4 rounded shadow bg-white" data-aos="fade-up"
+                                    data-aos-delay="300">
+                                    <h3 class="text-center mb-4">Create Your Profile</h3>
+                                    <p class="text-muted text-center mb-4">
+                                        Join us to publish your work and collaborate with global scientific minds.
+                                    </p>
+
+                                    <form id="contactForm" action="/admin/auth" method="post" enctype="multipart/form-data" data-aos="fade-up" data-aos-delay="200">
+                                        <div class="row gy-3">
+
+                                            <!-- Name Field -->
+                                            <div class="col-md-12">
+                                                <label for="name" class="form-label">Full Name</label>
+                                                <input type="text" id="name" name="name" class="form-control"
+                                                    placeholder="Enter your full name" required>
+                                            </div>
+
+                                            <!-- Email Field -->
+                                            <div class="col-md-12">
+                                                <label for="email" class="form-label">Email Address</label>
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    placeholder="Enter your email" required>
+                                            </div>
+
+                                            <!-- Phone Number -->
+                                            <div class="col-md-12">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input type="tel" id="phone" name="phone" class="form-control"
+                                                    placeholder="Enter your phone number" required>
+                                            </div>
+
+                                            <!-- Role Selection -->
+                                            <div class="col-md-12">
+                                                <label for="role" class="form-label">Role</label>
+                                                <select id="role" name="role" class="form-select" required>
+                                                    <option value="editor">Editor</option>
+                                                    <option value="reviewer">Reviewer</option>
+                                                    <option value="reader">Reader</option>
+                                                    <option value="admin">Admin</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Password Field -->
+                                            <div class="col-md-12 position-relative">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" id="password" name="password"
+                                                    class="form-control" placeholder="Enter your password" required>
+                                                <!-- Eye Icon for Visibility Toggle -->
+                                                <span class="position-absolute top-50 end-0 translate-middle-y me-4"
+                                                    style="cursor: pointer;" onclick="togglePasswordVisibility()">
+                                                    <i id="eyeIcon" class="fas fa-eye"></i>
+                                                </span>
+                                            </div>
+                                            <!-- Image Upload Field -->
+                                            <div class="col-md-12">
+                                                <label for="profileImage" class="form-label">Upload Profile
+                                                    Image</label>
+                                                <input type="file" id="profileImage" name="profileImage"
+                                                    class="form-control" accept="image/*" required>
+                                            </div>
+
+                                            <script>function togglePasswordVisibility() {
+                                                    const passwordInput = document.getElementById('password');
+                                                    const eyeIcon = document.getElementById('eyeIcon');
+
+                                                    if (passwordInput.type === 'password') {
+                                                        passwordInput.type = 'text';
+                                                        eyeIcon.classList.remove('fa-eye');
+                                                        eyeIcon.classList.add('fa-eye-slash');
+                                                    } else {
+                                                        passwordInput.type = 'password';
+                                                        eyeIcon.classList.remove('fa-eye-slash');
+                                                        eyeIcon.classList.add('fa-eye');
+                                                    }
+                                                }
+                                            </script>
+                                            <!-- Bio/About Field -->
+                                            <div class="col-12">
+                                                <label for="about" class="form-label">About You</label>
+                                                <textarea id="about" class="form-control" name="about" rows="4"
+                                                    placeholder="Tell us a little about yourself..."
+                                                    required></textarea>
+                                            </div>
+
+                                            <!-- Submit Button -->
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-primary">Register
+                                                    Now</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        document.getElementById('contactForm').addEventListener('submit', function () {
+                                            const submitButton = document.getElementById('submitButton');
+                                            submitButton.disabled = true;
+                                            submitButton.textContent = 'Sending...';
+                                        });
+
+                                    </script>
+                                </div>
+                            </div>
+
+                            </center>
+                        </div>
+
+                    </div>
+
+                </section><!-- /Contact Section -->
+
+
+            </div>
+
+        </section><!-- /Starter Section Section -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    </main>
+
+    <%- include('../../partials/footer') %>

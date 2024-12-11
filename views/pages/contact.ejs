@@ -1,0 +1,132 @@
+<%- include('../partials/header') %>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="current">Contact</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Starter Section Section -->
+    <section id="starter-section" class="starter-section section">
+      <div class="container" data-aos="fade-up">
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section light-background">
+          <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row g-4 g-lg-5">
+              <div class="col-lg-5">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="200">
+                  <h3>Contact Information</h3>
+                  <p>
+                    Get in touch with us for any inquiries or support. We're here to assist you and ensure a seamless
+                    experience.
+                  </p>
+
+                  <div class="info-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-box">
+                      <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="content">
+                      <h4>Our Location</h4>
+                      <p>A108 Adam Street</p>
+                      <p>New York, NY 535022</p>
+                    </div>
+                  </div>
+
+                  <div class="info-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="icon-box">
+                      <i class="bi bi-telephone"></i>
+                    </div>
+                    <div class="content">
+                      <h4>Phone Number</h4>
+                      <p>+1 5589 55488 55</p>
+                      <p>+1 6678 254445 41</p>
+                    </div>
+                  </div>
+
+                  <div class="info-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="icon-box">
+                      <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="content">
+                      <h4>Email Address</h4>
+                      <p>info@journalslibrary.net</p>
+                      <p>contact@journalslibrary.net</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-7">
+                <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
+                  <h3>Get In Touch</h3>
+                  <p>
+                    We’d love to hear from you! Whether you have questions, feedback, or need support, feel free to
+                    reach out.
+                  </p>
+
+
+                  <form id="contactForm" method="post">
+                    <div class="row gy-4">
+                        <div class="col-md-6">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <input type="checkbox" name="emergency" id="emergency">
+                            <label for="emergency">Mark as Emergency</label>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn" id="submitButton">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div id="formResponse" class="text-center mt-4"><% if (errorMessage) { %>
+                  <div class="error-message"><%= errorMessage %></div>
+              <% } %></div>
+                
+                  <script>
+                    document.getElementById('contactForm').addEventListener('submit', function () {
+                      const submitButton = document.getElementById('submitButton');
+                      submitButton.disabled = true;
+                      submitButton.textContent = 'Sending...';
+                    });
+
+                  </script>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section><!-- /Contact Section -->
+
+
+      </div>
+
+    </section><!-- /Starter Section Section -->
+
+  </main>
+
+  <%- include('../partials/footer') %>

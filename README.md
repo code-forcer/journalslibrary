@@ -1,2 +1,0 @@
-# journalslibrary
-journalslibrary codebase
