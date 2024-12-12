@@ -41,6 +41,7 @@ app.use(
         },
     })
 );
+
 // Flash Middleware
 app.use(flash());
 
@@ -133,7 +134,16 @@ app.get('/download/copyright-form', (req, res) => {
     }
   });
 });
-
+// Route to handle file download
+app.get('/download/paper-format', (req, res) => {
+  const filePath = path.join(__dirname, 'public/authordownloads/Journalslibrary-net-paper-format.docx');
+  res.download(filePath, 'Paper-Format.docx', (err) => {
+    if (err) {
+      console.error("Error sending the file:", err);
+      res.status(500).send('Error downloading file');
+    }
+  });
+});
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
