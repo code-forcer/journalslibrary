@@ -123,6 +123,17 @@ app.use('/', issuesRoute);
 app.use('/', allcontactsRoute);
 app.use('/', viewreviewersRoute);
 
+// Route to handle file download
+app.get('/download/copyright-form', (req, res) => {
+  const filePath = path.join(__dirname, 'public/authordownloads/Jl-copyright.pdf');
+  res.download(filePath, 'Jl-copyright.pdf', (err) => {
+    if (err) {
+      console.error("Error sending the file:", err);
+      res.status(500).send('Error downloading file');
+    }
+  });
+});
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
