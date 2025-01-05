@@ -75,38 +75,50 @@
               <div class="status-box">
                 <h5>Enter Article ID</h5>
                 <!-- Input field for article ID -->
-                <input id="article-id" type="text" placeholder="Ex. JL_aesdv1234" class="form-control d-inline">
+                <input id="article-id" type="text" placeholder="Ex. JL_2025_xxx" class="form-control d-inline">
                 <!-- Button to check the status -->
                 <button id="check-status-btn" class="btn mt-2">Get Status</button>
                 <!-- Div to show the status result -->
                 <div id="status-result" style="margin-top: 15px;"></div>
               </div>
             </div>
-
             <script>
-              // Select the button and input field
+              // Select the button, input field, and result div
               const checkStatusBtn = document.getElementById('check-status-btn');
               const articleIdInput = document.getElementById('article-id');
               const statusResultDiv = document.getElementById('status-result');
-
+            
+              // Create a loading spinner element
+              const spinner = document.createElement('div');
+              spinner.innerHTML = `
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              `;
+            
               // Event listener for the button click
               checkStatusBtn.addEventListener('click', async () => {
                 // Get the article ID entered by the user
                 const articleId = articleIdInput.value.trim();
-
-                // Check if the article ID is not empty and follows the expected format (JL_ followed by alphanumeric characters)
-                const articleIdPattern = /^JL_[a-zA-Z0-9]+$/;
-
+            
+                // Check if the article ID is not empty and follows the expected format (JL_YYYY_NNN)
+                const articleIdPattern = /^JL_\d{4}_\d{3}$/   || /^JL_[a-zA-Z0-9]+$/; // e.g., JL_2025_001
+            
                 if (articleId === '') {
                   statusResultDiv.innerHTML = '<p>Please enter a valid article ID.</p>';
                   return;
                 }
-
+            
                 if (!articleIdPattern.test(articleId)) {
-                  statusResultDiv.innerHTML = '<p>Invalid Article ID format. Please use the correct format (e.g., JL_123456).</p>';
+                  statusResultDiv.innerHTML = '<p>Invalid Article ID format. Please use the correct format (e.g., JL_2025_001).</p>';
                   return;
                 }
-
+            
+                // Disable the button and show the spinner
+                checkStatusBtn.disabled = true;
+                statusResultDiv.innerHTML = ''; // Clear any previous messages
+                statusResultDiv.appendChild(spinner);
+            
                 // Send an AJAX request to the backend to check the status
                 try {
                   const response = await fetch('/checkpaperstatus', {
@@ -116,13 +128,13 @@
                     },
                     body: JSON.stringify({ articleId }), // Send article ID as JSON body
                   });
-
+            
                   if (!response.ok) {
                     throw new Error('Failed to fetch status. Please try again later.');
                   }
-
+            
                   const data = await response.json();
-
+            
                   // Update the status result div based on the response
                   if (data.status) {
                     statusResultDiv.innerHTML = `<h1 class="text-decoration-underline" style="color:#1ea40c;">${data.status}</h1>`;
@@ -132,11 +144,16 @@
                 } catch (error) {
                   // Handle any fetch errors (e.g., network issues)
                   statusResultDiv.innerHTML = `<p>There was an error: ${error.message}. Please try again later.</p>`;
+                } finally {
+                  // Re-enable the button and remove the spinner
+                  checkStatusBtn.disabled = false;
+                  if (statusResultDiv.contains(spinner)) {
+                    statusResultDiv.removeChild(spinner);
+                  }
                 }
               });
             </script>
-
-
+            
             <!-- Sidebar Section -->
             <div class="col-lg-4 mt-4 mt-lg-0">
               <div class="sidebar">
