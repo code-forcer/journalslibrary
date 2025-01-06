@@ -65,7 +65,7 @@ const upload = multer({
 router.post('/admin/vieweachfile/update/:id', upload.single('paperFile'), async (req, res) => {
   try {
       const { authorName, paperTitle, email, country, status } = req.body;
-      const paperFilePath = req.file ? `/uploads/${req.file.filename}` : req.body.existingFilePath; // Keep existing file if no new file is uploaded
+      const paperFile = req.file ? `/uploads/${req.file.filename}` : req.body.existingFilePath; // Keep existing file if no new file is uploaded
 
       // Find and update the submission
       const updatedSubmission = await Submission.findByIdAndUpdate(
@@ -76,7 +76,7 @@ router.post('/admin/vieweachfile/update/:id', upload.single('paperFile'), async 
               email,
               country,
               status,
-              paperFilePath, // Update the file path if a new file is uploaded
+              paperFile, // Update the file path if a new file is uploaded
           },
           { new: true } // Return the updated document
       );
